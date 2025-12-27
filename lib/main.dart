@@ -1,5 +1,7 @@
 
 
+//i used gpt a lil !!     
+
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
@@ -9,8 +11,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: ProfilePage(),
+    return MaterialApp(
+      home: const ProfilePage(),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -20,169 +22,128 @@ class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
   final String profileImage =
-      'https://i.chzbgr.com/full/9224090624/h6825A85E/weird-meme-cartoon-nellucnhoj-com';
+      'https://i.pinimg.com/originals/63/e6/bb/63e6bb82cbdb3e836e2477ef07db7fab.gif';
   final String name = 'MONGOL';
-  final String followers = '106';
-  final String likes = '9.4k';
-  final String xp = '24x';
+  final String followers = '2.6M';
+  final String likes = '12M';
+  final String views = '24M';
+  final String backgroundImage =
+      'https://i.pinimg.com/1200x/ae/90/04/ae9004cb07427c72d725ba58268ec9a3.jpg';
 
-  // Leave this blank for now
-  final String headerImage = '';
-
-  final List<String> posts = const [
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMIkkDhTh3c1Bbvg5wEn2GfN5rhn7P3ddIsw&s',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHsnwhOVxQqNp_vlTmvyQcsQ4q1s24jQCWcw&s',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQJzZqfXqvpgiwCTJ-FtbM_t2sjn_1e8aOXQ&s',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqkfwQb2ROXB2Dh42h8kM46ZAy6S8ENOIECA&s',
+  final List<String> middleImages = const [
+    'https://i.pinimg.com/1200x/4e/52/a5/4e52a5971202d84747cf445a9d300ced.jpg',
+    'https://i.pinimg.com/1200x/a1/a4/bd/a1a4bdc2bf507e5cd14fd929271c9a39.jpg',
+    'https://i.pinimg.com/736x/9d/3d/4f/9d3d4f089d55a22cd70ddc51858c55ee.jpg',
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black87,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: const BackButton(color: Colors.white),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // HEADER
-            Stack(
-              clipBehavior: Clip.none,
+      backgroundColor: Colors.black,
+      body: Stack(
+        children: [
+          // Background Image
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: NetworkImage(backgroundImage),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          // Semi-transparent overlay
+          Container(
+            color: Colors.black.withOpacity(0.5),
+          ),
+          // Content
+          SafeArea(
+            child: Column(
               children: [
-                Container(
-                  height: 220,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[900], // placeholder for now
-                    image: headerImage.isNotEmpty
-                        ? DecorationImage(
-                      image: NetworkImage(headerImage),
-                      fit: BoxFit.cover,
-                    )
-                        : null,
+                const SizedBox(height: 20), // top spacing
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // Profile Picture
+                      CircleAvatar(
+                        radius: 50,
+                        backgroundColor: Colors.grey,
+                        child: CircleAvatar(
+                          radius: 46,
+                          backgroundImage: NetworkImage(profileImage),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      // Name
+                      Text(
+                        name,
+                        style: const TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      const SizedBox(height: 24),
+                      // 3 Images Diagonal / Vector Style
+                      SizedBox(
+                        height: 120,
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Positioned(
+                              left: 0,
+                              top: 50,
+                              child: _buildMiddleImage(middleImages[0] ,size:70),
+                            ),
+                            Positioned(
+                              top: 20,
+                              child: _buildMiddleImage(middleImages[1], size: 70),
+                            ),
+                            Positioned(
+                              right: 0,
+                              top: 10,
+                              child: _buildMiddleImage(middleImages[2], size:70),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
+                // Stats Box at bottom
                 Container(
-                  height: 220,
+                  margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 15, horizontal: 20),
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Colors.black.withOpacity(0.2),
-                        Colors.black.withOpacity(0.7),
-                      ],
-                    ),
+                    color: Colors.grey[700],
+                    borderRadius: BorderRadius.circular(20),
                   ),
-                ),
-                Positioned(
-                  bottom: -50,
-                  left: 0,
-                  right: 0,
-                  child: CircleAvatar(
-                    radius: 50,
-                    backgroundColor: Colors.white,
-                    child: CircleAvatar(
-                      radius: 46,
-                      backgroundImage: NetworkImage(profileImage),
-                    ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      _buildStat('Followers', followers),
+                      _buildStat('Likes', likes),
+                      _buildStat('Views', views),
+                    ],
                   ),
                 ),
               ],
             ),
+          ),
+        ],
+      ),
+    );
+  }
 
-            const SizedBox(height: 60),
-
-            // NAME
-            Text(
-              name,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
-              ),
-            ),
-
-            const SizedBox(height: 15),
-
-            // STATS
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 40),
-              padding: const EdgeInsets.all(15),
-              decoration: BoxDecoration(
-                color: Colors.grey[900],
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  _buildStat('Followers', followers),
-                  _buildStat('Likes', likes),
-                  _buildStat('XP', xp),
-                ],
-              ),
-            ),
-
-            const SizedBox(height: 25),
-
-            // LIKES HEADER
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text(
-                    'Likes',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                    ),
-                  ),
-                  Text(
-                    'Show All',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-            const SizedBox(height: 10),
-
-            // GRID
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: GridView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: posts.length,
-                gridDelegate:
-                const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 8,
-                  mainAxisSpacing: 8,
-                ),
-                itemBuilder: (context, index) {
-                  return ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Image.network(
-                      posts[index],
-                      fit: BoxFit.cover,
-                    ),
-                  );
-                },
-              ),
-            ),
-
-            const SizedBox(height: 30),
-          ],
-        ),
+  Widget _buildMiddleImage(String url, {double size = 60}) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(12),
+      child: Image.network(
+        url,
+        width: size,
+        height: size,
+        fit: BoxFit.cover,
       ),
     );
   }
@@ -193,18 +154,12 @@ class ProfilePage extends StatelessWidget {
         Text(
           value,
           style: const TextStyle(
-            color: Colors.white,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
+              color: Colors.grey, fontSize: 18, fontWeight: FontWeight.bold),
         ),
-        const SizedBox(height: 4),
+        const SizedBox(height: 8),
         Text(
           label,
-          style: const TextStyle(
-            color: Colors.white70,
-            fontSize: 12,
-          ),
+          style: const TextStyle(color: Colors.grey, fontSize: 12),
         ),
       ],
     );
