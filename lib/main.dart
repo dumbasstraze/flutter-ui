@@ -42,7 +42,7 @@ class ProfilePage extends StatelessWidget {
       backgroundColor: Colors.black,
       body: Stack(
         children: [
-          // Background Image
+       
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
@@ -51,11 +51,11 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
           ),
-          // Semi-transparent overlay
+        
           Container(
             color: Colors.black.withOpacity(0.5),
           ),
-          // Content
+          
           SafeArea(
             child: Column(
               children: [
@@ -64,7 +64,7 @@ class ProfilePage extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // Profile Picture
+                   
                       CircleAvatar(
                         radius: 50,
                         backgroundColor: Colors.grey,
@@ -74,7 +74,7 @@ class ProfilePage extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 16),
-                      // Name
+                  
                       Text(
                         name,
                         style: const TextStyle(
@@ -84,7 +84,7 @@ class ProfilePage extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 24),
-                      // 3 Images Diagonal / Vector Style
+                    
                       SizedBox(
                         height: 120,
                         child: Stack(
@@ -110,7 +110,6 @@ class ProfilePage extends StatelessWidget {
                     ],
                   ),
                 ),
-                // Stats Box at bottom
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                   padding: const EdgeInsets.symmetric(
